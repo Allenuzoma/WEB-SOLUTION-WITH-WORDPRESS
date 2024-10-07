@@ -19,13 +19,32 @@ To see all the mounts and free spaces available on the server:
     df -h
 ![mounts and free spaces on the server](https://github.com/user-attachments/assets/b0903239-1bd5-4fbe-8aed-d1a1290315c1)
 
-We use the gdisk utility to create single partition on each of the three disks:  
+We use the gdisk utility to create single partition on each of the three disks. 
+Starting with disk /dev/xvdf, enter the command:
 
     sudo gdisk /dev/xvdf
 ![to create single partition table on disk 1 contd](https://github.com/user-attachments/assets/d74e81a6-998f-499b-a4a9-d000e6c89700)
 
-when asked for a command, type P for printing partition table and W to write. Enter Yes to proceed with the process.
+When asked for a command, type P for printing partition table, n for creating a new partion and W to write. Enter Yes to all and proceed with the process.
 
 ![to create single partition table on disk 1](https://github.com/user-attachments/assets/a5354f0a-9c1d-43f8-8b25-e89f8a915afe)
 
+We repeat the process for disks /dev/xvdg and /def/xvdh
 
+    sudo gdisk /dev/xvdg
+
+
+
+![create partition xvdg](https://github.com/user-attachments/assets/09f120f2-744d-4c94-a3ae-f338722dac8d)
+
+    
+
+    sudo gdisk /dev/xvdh
+
+
+![create partition xvdh](https://github.com/user-attachments/assets/d16f194b-d1c6-4fc5-96cb-3d5f32a87002)
+
+
+
+
+5
