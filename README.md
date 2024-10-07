@@ -47,4 +47,46 @@ We repeat the process for disks /dev/xvdg and /def/xvdh
 
 
 
-5
+5. Use lsblk to confirm new partition on each disk:
+
+   
+   lsblk
+
+Now we can see the newly created partitions for all the disks
+
+![newly created partitions](https://github.com/user-attachments/assets/1920265e-fdf9-46cd-9e9e-e756638e2f30)
+
+6. Install the lvm2 package:
+
+
+   sudo yum install lvm2
+
+    ![installing lvm2](https://github.com/user-attachments/assets/d0bb99f8-96ef-4101-bfe1-8f0649be2823)
+
+    ![installing lvm2 2](https://github.com/user-attachments/assets/c64aea52-b778-48c6-9dca-c80baf068f6d)
+
+
+
+   Check for available partition:
+
+
+
+   sudo lvmdiskscan
+
+    ![sudo lvmdiskscan](https://github.com/user-attachments/assets/5a405105-1528-4537-a57e-fc1b987b151a)
+
+
+ 7. Use pvcreate utility to mark each of the three disks partitions to be used by 
+    LVM:
+
+
+    sudo pvcreate /dev/xvdf1
+
+    sudo pvcreate /dev/xvdg1
+
+    sudo pvcreate /dev/xvdh1
+
+
+
+
+    ![sudo pvcreate to mark the 3 partitions as physical volumes used by lvm](https://github.com/user-attachments/assets/85e65fe0-d99a-4eb2-903a-5dc85a3b5d31)
