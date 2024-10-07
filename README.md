@@ -50,7 +50,7 @@ We repeat the process for disks /dev/xvdg and /def/xvdh
 5. Use lsblk to confirm new partition on each disk:
 
    
-   lsblk
+       lsblk
 
 Now we can see the newly created partitions for all the disks
 
@@ -59,7 +59,7 @@ Now we can see the newly created partitions for all the disks
 6. Install the lvm2 package:
 
 
-   sudo yum install lvm2
+       sudo yum install lvm2
 
     ![installing lvm2](https://github.com/user-attachments/assets/d0bb99f8-96ef-4101-bfe1-8f0649be2823)
 
@@ -71,7 +71,7 @@ Now we can see the newly created partitions for all the disks
 
 
 
-   sudo lvmdiskscan
+       sudo lvmdiskscan
 
     ![sudo lvmdiskscan](https://github.com/user-attachments/assets/5a405105-1528-4537-a57e-fc1b987b151a)
 
@@ -80,11 +80,11 @@ Now we can see the newly created partitions for all the disks
     LVM:
 
 
-    sudo pvcreate /dev/xvdf1
+        sudo pvcreate /dev/xvdf1
 
-    sudo pvcreate /dev/xvdg1
+        sudo pvcreate /dev/xvdg1
 
-    sudo pvcreate /dev/xvdh1
+        sudo pvcreate /dev/xvdh1
 
 
 
