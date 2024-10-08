@@ -206,8 +206,16 @@ important)
     ![restore log files back into var-log directory](https://github.com/user-attachments/assets/baee434a-795e-4981-b40d-735ec9c7c963)
 
 
-27. 
+We can now see the mountpoints to show the position of the web app files and the log files using:
 
+
+        lsblk
+
+
+![lsblk to see mount points](https://github.com/user-attachments/assets/64e9c39e-6fe6-4431-9b17-edd58eb15b84)
+
+
+      
 
 
 28. Update /etc/fstab file so that the mount configuration will persist after
