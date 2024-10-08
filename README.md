@@ -90,3 +90,130 @@ Now we can see the newly created partitions for all the disks
 
 
     ![sudo pvcreate to mark the 3 partitions as physical volumes used by lvm](https://github.com/user-attachments/assets/85e65fe0-d99a-4eb2-903a-5dc85a3b5d31)
+
+
+
+ 8. Verify the physical volume is created by entering:
+
+    
+         sudo pvs
+![sudo pvs verify phusical volume created](https://github.com/user-attachments/assets/6a8eefc7-1302-4b09-aab0-ef7f1c18792f)
+
+ 10. Use Vg create utility to add all 3 physical volumes to a volume group. Lets call the new volume: webdata-vg:
+
+     
+         sudo vgcreate webdata-vg /dev/xvdh1 /dev/xvdg1 /dev/xvdf1
+
+ 8. Verify the volume group is created by entering:
+         sugo vgs
+
+       
+     ![sudo vgs](https://github.com/user-attachments/assets/191cbd50-7b0e-441a-b649-f8c069637299)
+
+11. Use lvcreate utility to create 2 logical volumes. apps-lv (Use half of the
+PV size), and logs-lv Use the remaining space of the PV size. NOTE:
+apps-lv will be used to store data for the Website while, logs-lv will be
+used to store data for logs.
+
+
+
+      sudo lvcreate -n apps-lv -L 14G webdata-vg
+sudo lvcreate -n logs-lv -L 14G webdata-vg  
+
+![sudo lv create logs-lv](https://github.com/user-attachments/assets/d38bb034-4d82-41d5-9a0e-a1510b740e64)
+
+
+
+12. Verify that your Logical Volume has been created successfully by
+running
+
+
+        sudo lvs
+
+    ![sudo lvs](https://github.com/user-attachments/assets/c4c56df0-936f-4d94-b8db-ae7f9d4e692f)
+
+           
+13. Verify the entire setup
+
+        sudo vgdisplay -v #view complete setup - VG, PV,         and LV
+
+    ![sudo vgdisplay -v after creating vg pv lv ](https://github.com/user-attachments/assets/e93dd6b3-6f5c-49c3-b3b9-9af848395ee5)
+
+
+    sudo lsblk
+    ![sudo lsblk after creating vg pv and lv](https://github.com/user-attachments/assets/7e3c27f5-a1a6-4aa6-bc62-ca13b4d25a54)
+
+
+1. Use mkfs.ext4 to format the logical volumes with ext4 filesystem
+        sudo mkfs -t ext4 /dev/webdata-vg/apps-lv
+        sudo mkfs -t ext4 /dev/webdata-vg/logs-lv
+
+
+   ![sudo mkfs -t ext4 lv](https://github.com/user-attachments/assets/17f710ed-5a3c-4491-9dbb-aa8b94772826)
+
+15. Create /var/www/html directory to store                 websitefiles
+
+
+
+        sudo mkdir -p /var/www/html
+    ![to create var www html dir for web files](https://github.com/user-attachments/assets/dcbc2093-aa8e-4d7f-8bc7-7347c79f3598)
+
+18. Create /home/recovery/logs to store backup of log data
+
+
+
+    sudo mkdir -p /home/recovery/logs
+![create dir to store back up of log data](https://github.com/user-attachments/assets/aba6561f-bad6-416b-ae9a-f3db44f8a01a)
+
+
+23. Mount /var/www/html on apps-lv logical volume
+
+    
+        sudo mount /dev/webdata-vg/apps-lv /var/www/html/
+
+
+    ![mount varwwwhtml dir on app-lv logical volume](https://github.com/user-attachments/assets/4befbd7f-22e2-467d-96a1-eface3b6347a)
+
+
+24. Use rsync utility to backup all the files in the 
+   log directory /var/log into /home/recovery/logs 
+  (This is required before mounting the file system)
+
+     sudo rsync -av /var/log/ /home/recovery/logs/
+
+ ![rsync utility to backup](https://github.com/user-attachments/assets/210456ba-8060-4d94-944c-993c34f5833f)
+
+26. Mount /var/log on logs-lv logical volume. (Note that all the existing
+data on /var/log will be deleted. That is why step 15 above is very
+important)
+
+
+    sudo mount /dev/webdata-vg/logs-lv /var/log
+27. Restore log files back into /var/log directory
+
+28. 
+sudo rsync -av /home/recovery/logs/ /var/log
+
+
+30. Update /etc/fstab file so that the mount configuration will persist after
+restart of the server.
+
+The UUID of the device will be used to update the /etc/fstab file;
+
+
+        sudo blkid
+
+
+        sudo vi /etc/fstab
+        
+Update /etc/fstab in this format using your own UUID and rememeber to
+remove the leading and ending quotes.
+
+
+32. Test the configuration and reload the daemon
+sudo mount -a
+sudo systemctl daemon-reload
+33. Verify your setup by running df -h, output must look like this:
+Back to Course  Previous Lesson Mark Complete 
+
+    
