@@ -230,16 +230,26 @@ The UUID of the device will be used to update the /etc/fstab file;
 ![sudo blkid - to get the uuid of device](https://github.com/user-attachments/assets/00b5e22a-bfa0-4db1-81e9-9b90fc676612)
 
 
-        sudo vi /etc/fstab
+        sudo nano /etc/fstab
         
 Update /etc/fstab in this format using your own UUID and rememeber to
 remove the leading and ending quotes.
 
+        ![sudo nano -etc-fstab](https://github.com/user-attachments/assets/05b25edf-02d1-4d36-a735-52e15565d902)
 
+
+    
 32. Test the configuration and reload the daemon
-sudo mount -a
-sudo systemctl daemon-reload
-33. Verify your setup by running df -h, output must look like this:
-Back to Course  Previous Lesson Mark Complete 
+    
+        sudo mount -a
+        sudo systemctl daemon-reload
+
+
+
+34. Verify your setup by running df -h, output must look like this:
+
+
+     ![df -h  after systemctl daemon reload](https://github.com/user-attachments/assets/4b7e6e09-13d7-4dac-b085-4bdcb83f8834)
+
 
     
