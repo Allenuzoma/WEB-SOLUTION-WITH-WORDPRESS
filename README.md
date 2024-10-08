@@ -200,17 +200,26 @@ important)
     sudo mount /dev/webdata-vg/logs-lv /var/log
 27. Restore log files back into /var/log directory
 
-28. 
-sudo rsync -av /home/recovery/logs/ /var/log
+        sudo rsync -av /home/recovery/logs/ /var/log
+
+    
+    ![restore log files back into var-log directory](https://github.com/user-attachments/assets/baee434a-795e-4981-b40d-735ec9c7c963)
 
 
-30. Update /etc/fstab file so that the mount configuration will persist after
+27. 
+
+
+
+28. Update /etc/fstab file so that the mount configuration will persist after
 restart of the server.
 
 The UUID of the device will be used to update the /etc/fstab file;
 
 
         sudo blkid
+
+        
+![sudo blkid - to get the uuid of device](https://github.com/user-attachments/assets/00b5e22a-bfa0-4db1-81e9-9b90fc676612)
 
 
         sudo vi /etc/fstab
