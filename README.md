@@ -120,6 +120,7 @@ used to store data for logs.
       sudo lvcreate -n apps-lv -L 14G webdata-vg
 sudo lvcreate -n logs-lv -L 14G webdata-vg  
 
+
 ![sudo lv create logs-lv](https://github.com/user-attachments/assets/d38bb034-4d82-41d5-9a0e-a1510b740e64)
 
 
@@ -140,11 +141,15 @@ running
     ![sudo vgdisplay -v after creating vg pv lv ](https://github.com/user-attachments/assets/e93dd6b3-6f5c-49c3-b3b9-9af848395ee5)
 
 
-    sudo lsblk
+        sudo lsblk
+
+    
     ![sudo lsblk after creating vg pv and lv](https://github.com/user-attachments/assets/7e3c27f5-a1a6-4aa6-bc62-ca13b4d25a54)
 
 
-1. Use mkfs.ext4 to format the logical volumes with ext4 filesystem
+15. Use mkfs.ext4 to format the logical volumes with ext4 filesystem
+
+    
         sudo mkfs -t ext4 /dev/webdata-vg/apps-lv
         sudo mkfs -t ext4 /dev/webdata-vg/logs-lv
 
@@ -156,13 +161,17 @@ running
 
 
         sudo mkdir -p /var/www/html
+
+    
     ![to create var www html dir for web files](https://github.com/user-attachments/assets/dcbc2093-aa8e-4d7f-8bc7-7347c79f3598)
 
 18. Create /home/recovery/logs to store backup of log data
 
 
 
-    sudo mkdir -p /home/recovery/logs
+        sudo mkdir -p /home/recovery/logs
+
+    
 ![create dir to store back up of log data](https://github.com/user-attachments/assets/aba6561f-bad6-416b-ae9a-f3db44f8a01a)
 
 
