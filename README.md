@@ -418,7 +418,6 @@ Now we can see the newly created partitions for all the disks
      
          sudo vgcreate webdata-vg /dev/xvdi1 /dev/xvdj1 /dev/xvdk1
 
-![creation of database vg ](https://github.com/user-attachments/assets/6f29b72e-c657-4e1e-8699-93a466460bb9)
 
 
 
@@ -426,8 +425,9 @@ Now we can see the newly created partitions for all the disks
          sugo vgs
 
        
-    
-![sudo vgs for database-vg created](https://github.com/user-attachments/assets/da3993a0-3c21-4a6a-9ecc-0f58147351b7)
+    ![sudo vgs for webdata-vg greated](https://github.com/user-attachments/assets/4e216fbd-1955-43c4-9c56-10fbb525a54a)
+
+
 
      
 11. Use lvcreate utility to create 2 logical volumes. db-lv (Use half of the
@@ -437,12 +437,10 @@ used to store data for logs.
 
 
 
-      sudo lvcreate -n db-lv -L 14G database-vg
-      sudo lvcreate -n logs-lv -L 14G database-vg  
+      sudo lvcreate -n db-lv -L 14G webdata-vg
+      sudo lvcreate -n logs-lv -L 14G webdata-vg  
 
 
-
-![sudo lv create logical volumes](https://github.com/user-attachments/assets/52b64c6b-801c-4794-a969-942319cdea1c)
 
 
 12. Verify that your Logical Volume has been created successfully by
@@ -451,14 +449,16 @@ running
 
         sudo lvs
 
-    ![sudo lvs to view logical volumes](https://github.com/user-attachments/assets/f13db590-6119-4275-87dd-d4933fe02478)
+   ![sudo lvs](https://github.com/user-attachments/assets/8acce0dd-4d89-4316-9627-24351268722d)
+
 
            
 13. Verify the entire setup
 
         sudo vgdisplay -v #view complete setup - VG, PV,         and LV
 
-    ![sudo vgdisplay -v](https://github.com/user-attachments/assets/87e015fd-f94c-4076-9a0c-138ea6bf35e6)
+    
+![sudo vgdisplay -v n](https://github.com/user-attachments/assets/31743421-8692-4d05-9492-379bbe6f58e2)
 
 
         sudo lsblk
@@ -471,21 +471,17 @@ running
 15. Use mkfs.ext4 to format the logical volumes with ext4 filesystem
 
     
-        sudo mkfs -t ext4 /dev/database-vg/db-lv
-        sudo mkfs -t ext4 /dev/database-vg/logs-lv
-
-
-   ![sudo mkfs ](https://github.com/user-attachments/assets/27cbadba-e811-49bd-a884-75639af1ce3f)
-
-
-15. Create /var/www/html directory to store websitefiles
+        sudo mkfs -t ext4 /dev/webdata-vg/db-lv
+        sudo mkfs -t ext4 /dev/webdata-vg/logs-lv
 
 
 
-        sudo mkdir -p /var/www/html
+15. Create /db directory to store websitefiles
 
-    
-    ![to create var www html dir for web files](https://github.com/user-attachments/assets/dcbc2093-aa8e-4d7f-8bc7-7347c79f3598)
+
+
+        sudo mkdir -p /db
+
 
 
 
@@ -500,10 +496,10 @@ running
 
 
 
-23. Mount /var/www/html on db-lv logical volume
+23. Mount /db on db-lv logical volume
 
     
-        sudo mount /dev/database-vg/db-lv /var/www/html/
+        sudo mount /dev/webdata-vg/db-lv /db
 
     We can view our configuration so far:
 
@@ -512,7 +508,8 @@ running
 
 
 
-    ![lsblk to view our config so far pngll](https://github.com/user-attachments/assets/71f8e273-ea97-4a83-bfda-346c010a876f)
+    
+![lsblk to view our config so far png l](https://github.com/user-attachments/assets/d672b3d1-3264-4cda-88e2-3bf2e8b5f397)
 
 
 
@@ -558,7 +555,7 @@ We can now see the mountpoints to show the position of the web app files and the
         lsblk
 
 
-    ![lsblk viewing config after mounting and recopying](https://github.com/user-attachments/assets/1449a74f-88ea-45c6-89da-d378129af98d)
+![lsblk viewing config after mounting and recopying](https://github.com/user-attachments/assets/1449a74f-88ea-45c6-89da-d378129af98d)
 
 
 
