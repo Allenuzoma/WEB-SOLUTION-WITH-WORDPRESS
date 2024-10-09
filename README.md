@@ -406,7 +406,7 @@ Now we can see the newly created partitions for all the disks
 
 
 
- 8. Verify the physical volume is created by entering:
+ 8. Verify the physical volume is created by entering
 
     
          sudo pvs
