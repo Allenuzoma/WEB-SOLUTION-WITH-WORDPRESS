@@ -264,10 +264,12 @@ remove the leading and ending quotes.
 # WEB-SOLUTION-WITH-WORDPRESS
 Create an EC2 instance with the Redhat OS.
 Name the instance Web-Server
+![db server instance creation](https://github.com/user-attachments/assets/2ace169f-f21b-4228-a599-51e73f2f921f)
 
 Create three EBS volumes of 10 Gib each
 
 
+![db volume list](https://github.com/user-attachments/assets/dd9c9fcd-463f-4076-b5c5-0fca38ea5a59)
 
 
 Next we connect our instance using the windows terminal
@@ -281,37 +283,41 @@ We can see the block device currently connected using the command:
     lsblk
 
 
-    
+![lsblk newly created block](https://github.com/user-attachments/assets/cc3cd401-b39f-411a-ade0-4ead0f82e39c)
+
 
     
 To see all the mounts and free spaces available on the server:
     df -h
+![df -h showing mounts and free spaces](https://github.com/user-attachments/assets/2f2ac5d8-e409-45ca-b751-d5d304445a63)
 
 We use the gdisk utility to create single partition on each of the three disks. 
 Starting with disk /dev/xvdf, enter the command:
 
-    sudo gdisk /dev/xvdf
-![to create single partition table on disk 1 contd](https://github.com/user-attachments/assets/d74e81a6-998f-499b-a4a9-d000e6c89700)
+    sudo gdisk /dev/xvdi
+
 
 When asked for a command, type P for printing partition table, n for creating a new partion and W to write. Enter Yes to all and proceed with the process.
 
-![to create single partition table on disk 1](https://github.com/user-attachments/assets/a5354f0a-9c1d-43f8-8b25-e89f8a915afe)
+![sudo gdisk xvdi](https://github.com/user-attachments/assets/2598193d-4872-4139-b731-b4041e5a45db)
+
 
 We repeat the process for disks /dev/xvdg and /def/xvdh
 
-    sudo gdisk /dev/xvdg
+    sudo gdisk /dev/xvdj
 
 
 
-![create partition xvdg](https://github.com/user-attachments/assets/09f120f2-744d-4c94-a3ae-f338722dac8d)
 
-    
+
+ ![sudo gdisk dev-xvdj disk](https://github.com/user-attachments/assets/fe060333-0e79-4147-b8eb-59bda92e530b)
+
 
     sudo gdisk /dev/xvdh
 
 
-![create partition xvdh](https://github.com/user-attachments/assets/d16f194b-d1c6-4fc5-96cb-3d5f32a87002)
 
+![sudo gdisk xvdj](https://github.com/user-attachments/assets/4a6c6bb9-27de-47dc-a1c7-253147af60ed)
 
 
 
@@ -322,16 +328,17 @@ We repeat the process for disks /dev/xvdg and /def/xvdh
 
 Now we can see the newly created partitions for all the disks
 
-![newly created partitions](https://github.com/user-attachments/assets/1920265e-fdf9-46cd-9e9e-e756638e2f30)
+
+![lsblk confirm created partitions](https://github.com/user-attachments/assets/7a2277b9-6263-4d74-b4e1-fffde180244f)
 
 6. Install the lvm2 package:
 
 
        sudo yum install lvm2
 
-    ![installing lvm2](https://github.com/user-attachments/assets/d0bb99f8-96ef-4101-bfe1-8f0649be2823)
+   
 
-    ![installing lvm2 2](https://github.com/user-attachments/assets/c64aea52-b778-48c6-9dca-c80baf068f6d)
+   ![sudo yum install lvm2](https://github.com/user-attachments/assets/1e002a71-22e4-44ee-8652-d73d5046ab13)
 
 
 
@@ -341,8 +348,8 @@ Now we can see the newly created partitions for all the disks
 
        sudo lvmdiskscan
 
-    ![sudo lvmdiskscan](https://github.com/user-attachments/assets/5a405105-1528-4537-a57e-fc1b987b151a)
 
+![sudo lvm diskscan](https://github.com/user-attachments/assets/a2725345-1abd-4f4b-b31a-fd823b62e4b4)
 
  7. Use pvcreate utility to mark each of the three disks partitions to be used by 
     LVM:
@@ -357,7 +364,7 @@ Now we can see the newly created partitions for all the disks
 
 
 
-    ![sudo pvcreate to mark the 3 partitions as physical volumes used by lvm](https://github.com/user-attachments/assets/85e65fe0-d99a-4eb2-903a-5dc85a3b5d31)
+   ![pvcreate pv for the 3 disks](https://github.com/user-attachments/assets/cc91562d-a9c7-4cf2-964b-f1c9b57cc080)
 
 
 
@@ -365,12 +372,17 @@ Now we can see the newly created partitions for all the disks
 
     
          sudo pvs
-![sudo pvs verify phusical volume created](https://github.com/user-attachments/assets/6a8eefc7-1302-4b09-aab0-ef7f1c18792f)
+
+![sudo pvs](https://github.com/user-attachments/assets/a76227a9-90a2-460d-afea-4b9fe5ea6e4e)
 
  10. Use Vg create utility to add all 3 physical volumes to a volume group. Lets call the new volume: webdata-vg:
 
      
          sudo vgcreate webdata-vg /dev/xvdh1 /dev/xvdg1 /dev/xvdf1
+
+![creation of database vg ](https://github.com/user-attachments/assets/6f29b72e-c657-4e1e-8699-93a466460bb9)
+
+
 
  8. Verify the volume group is created by entering:
          sugo vgs
