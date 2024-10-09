@@ -571,8 +571,9 @@ The UUID of the device will be used to update the /etc/fstab file;
 
         sudo blkid
 
-        
-![sudo blk ](https://github.com/user-attachments/assets/e0bd1b2b-a687-4bc0-8b75-6e2d0b39bdb9)
+![sudo blkid n](https://github.com/user-attachments/assets/160b4afd-3609-4960-bbd9-b4effd41112d)
+
+
 
 
 
@@ -581,7 +582,7 @@ The UUID of the device will be used to update the /etc/fstab file;
 Update /etc/fstab in this format using your own UUID and rememeber to
 remove the leading and ending quotes.
 
-![nano etc fstab](https://github.com/user-attachments/assets/3327f582-3797-47b8-b055-c3ae9c00986d)
+![sudo etc fstab](https://github.com/user-attachments/assets/94411524-c879-4214-8522-7e446690c662)
 
 
     
@@ -594,8 +595,8 @@ remove the leading and ending quotes.
 
 34. Verify your setup by running df -h, output must look like this:
 
+    ![df -h after daemon reload png n](https://github.com/user-attachments/assets/8f31d0c6-93f0-4b16-9a77-44eb1765a525)
 
-    ![df -h after daemon reload](https://github.com/user-attachments/assets/8ceddb41-32f6-4c3a-9fbf-930fcc15b0bd)
-
+    
 
     
