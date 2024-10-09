@@ -549,7 +549,7 @@ data on /var/log will be deleted. This is why we copied to the /home/recovery/lo
         sudo rsync -av /home/recovery/logs/ /var/log
 
     
-        ![varlog foler after recopying from homeRecovery](https://github.com/user-attachments/assets/1f1240bc-9642-43d6-ae30-dadbafdc2fed)
+     ![varlog foler after recopying from homeRecovery](https://github.com/user-attachments/assets/1f1240bc-9642-43d6-ae30-dadbafdc2fed)
 
 
 We can now see the mountpoints to show the position of the web app files and the log files using:
@@ -574,7 +574,8 @@ The UUID of the device will be used to update the /etc/fstab file;
         sudo blkid
 
         
-![sudo blkid - to get the uuid of device](https://github.com/user-attachments/assets/00b5e22a-bfa0-4db1-81e9-9b90fc676612)
+![sudo blk ](https://github.com/user-attachments/assets/e0bd1b2b-a687-4bc0-8b75-6e2d0b39bdb9)
+
 
 
         sudo nano /etc/fstab
@@ -582,7 +583,7 @@ The UUID of the device will be used to update the /etc/fstab file;
 Update /etc/fstab in this format using your own UUID and rememeber to
 remove the leading and ending quotes.
 
-        ![sudo nano -etc-fstab](https://github.com/user-attachments/assets/05b25edf-02d1-4d36-a735-52e15565d902)
+![nano etc fstab](https://github.com/user-attachments/assets/3327f582-3797-47b8-b055-c3ae9c00986d)
 
 
     
@@ -596,7 +597,7 @@ remove the leading and ending quotes.
 34. Verify your setup by running df -h, output must look like this:
 
 
-     ![df -h  after systemctl daemon reload](https://github.com/user-attachments/assets/4b7e6e09-13d7-4dac-b085-4bdcb83f8834)
+    ![df -h after daemon reload](https://github.com/user-attachments/assets/8ceddb41-32f6-4c3a-9fbf-930fcc15b0bd)
 
 
     
