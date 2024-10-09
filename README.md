@@ -260,7 +260,7 @@ remove the leading and ending quotes.
 
      ![df -h  after systemctl daemon reload](https://github.com/user-attachments/assets/4b7e6e09-13d7-4dac-b085-4bdcb83f8834)
 #######################################################################################################################################################################################################################################################################################################################################################################################
-
+**STEP 2**
 # WEB-SOLUTION-WITH-WORDPRESS
 Create an EC2 instance with the Redhat OS.
 Name the instance Web-Server
@@ -378,7 +378,7 @@ Now we can see the newly created partitions for all the disks
  10. Use Vg create utility to add all 3 physical volumes to a volume group. Lets call the new volume: webdata-vg:
 
      
-         sudo vgcreate webdata-vg /dev/xvdh1 /dev/xvdg1 /dev/xvdf1
+         sudo vgcreate webdata-vg /dev/xvdi1 /dev/xvdj1 /dev/xvdk1
 
 ![creation of database vg ](https://github.com/user-attachments/assets/6f29b72e-c657-4e1e-8699-93a466460bb9)
 
@@ -388,21 +388,23 @@ Now we can see the newly created partitions for all the disks
          sugo vgs
 
        
-     ![sudo vgs](https://github.com/user-attachments/assets/191cbd50-7b0e-441a-b649-f8c069637299)
+    
+![sudo vgs for database-vg created](https://github.com/user-attachments/assets/da3993a0-3c21-4a6a-9ecc-0f58147351b7)
 
-11. Use lvcreate utility to create 2 logical volumes. apps-lv (Use half of the
+     
+11. Use lvcreate utility to create 2 logical volumes. db-lv (Use half of the
 PV size), and logs-lv Use the remaining space of the PV size. NOTE:
 apps-lv will be used to store data for the Website while, logs-lv will be
 used to store data for logs.
 
 
 
-      sudo lvcreate -n apps-lv -L 14G webdata-vg
-sudo lvcreate -n logs-lv -L 14G webdata-vg  
+      sudo lvcreate -n db-lv -L 14G database-vg
+      sudo lvcreate -n logs-lv -L 14G database-vg  
 
 
-![sudo lv create logs-lv](https://github.com/user-attachments/assets/d38bb034-4d82-41d5-9a0e-a1510b740e64)
 
+![sudo lv create logical volumes](https://github.com/user-attachments/assets/52b64c6b-801c-4794-a969-942319cdea1c)
 
 
 12. Verify that your Logical Volume has been created successfully by
@@ -411,30 +413,32 @@ running
 
         sudo lvs
 
-    ![sudo lvs](https://github.com/user-attachments/assets/c4c56df0-936f-4d94-b8db-ae7f9d4e692f)
+    ![sudo lvs to view logical volumes](https://github.com/user-attachments/assets/f13db590-6119-4275-87dd-d4933fe02478)
 
            
 13. Verify the entire setup
 
         sudo vgdisplay -v #view complete setup - VG, PV,         and LV
 
-    ![sudo vgdisplay -v after creating vg pv lv ](https://github.com/user-attachments/assets/e93dd6b3-6f5c-49c3-b3b9-9af848395ee5)
+    ![sudo vgdisplay -v](https://github.com/user-attachments/assets/87e015fd-f94c-4076-9a0c-138ea6bf35e6)
 
 
         sudo lsblk
 
     
-    ![sudo lsblk after creating vg pv and lv](https://github.com/user-attachments/assets/7e3c27f5-a1a6-4aa6-bc62-ca13b4d25a54)
+   ![lsblk to view our config so far](https://github.com/user-attachments/assets/3f12f12a-0502-4c0e-86c6-7b74cdf5aea2)
+
 
 
 15. Use mkfs.ext4 to format the logical volumes with ext4 filesystem
 
     
-        sudo mkfs -t ext4 /dev/webdata-vg/apps-lv
-        sudo mkfs -t ext4 /dev/webdata-vg/logs-lv
+        sudo mkfs -t ext4 /dev/database-vg/db-lv
+        sudo mkfs -t ext4 /dev/database-vg/logs-lv
 
 
-   ![sudo mkfs -t ext4 lv](https://github.com/user-attachments/assets/17f710ed-5a3c-4491-9dbb-aa8b94772826)
+   ![sudo mkfs ](https://github.com/user-attachments/assets/27cbadba-e811-49bd-a884-75639af1ce3f)
+
 
 15. Create /var/www/html directory to store                 websitefiles
 
