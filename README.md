@@ -535,7 +535,8 @@ We can see that both directories are now identical in contents.
 26. Mount /var/log on logs-lv logical volume. (Note that all the existing
 data on /var/log will be deleted. This is why we copied to the /home/recovery/logs/ directory using the rsync utility
 
-    sudo mount /dev/webdata-vg/logs-lv /var/log
+
+        sudo mount /dev/webdata-vg/logs-lv /var/log
 
 
     ![after mounting varlog dir to the log-lv](https://github.com/user-attachments/assets/a94b8493-aaa5-4a90-9f5a-4b2eac384286)
