@@ -496,38 +496,60 @@ running
         sudo mkdir -p /home/recovery/logs
 
     
-![create dir to store back up of log data](https://github.com/user-attachments/assets/aba6561f-bad6-416b-ae9a-f3db44f8a01a)
+![sudo home-recovery-logs for storing log data](https://github.com/user-attachments/assets/b6a5c985-517e-419f-80ec-8bdb51e04392)
 
 
-23. Mount /var/www/html on apps-lv logical volume
+
+23. Mount /var/www/html on db-lv logical volume
 
     
-        sudo mount /dev/webdata-vg/apps-lv /var/www/html/
+        sudo mount /dev/database-vg/db-lv /var/www/html/
+
+    We can view our configuration so far:
 
 
-    ![mount varwwwhtml dir on app-lv logical volume](https://github.com/user-attachments/assets/4befbd7f-22e2-467d-96a1-eface3b6347a)
+        lsblk
 
 
-24. Use rsync utility to backup all the files in the 
-   log directory /var/log into /home/recovery/logs 
-  (This is required before mounting the file system)
+
+    ![lsblk to view our config so far pngll](https://github.com/user-attachments/assets/71f8e273-ea97-4a83-bfda-346c010a876f)
+
+
+
+25. Use rsync utility to backup all the files in the log directory /var/log into 
+    /home/recovery/logs (This is required before mounting the file system)
 
      sudo rsync -av /var/log/ /home/recovery/logs/
 
- ![rsync utility to backup](https://github.com/user-attachments/assets/210456ba-8060-4d94-944c-993c34f5833f)
+
+See the content of the /var/log/ directory
+    ![ls var log](https://github.com/user-attachments/assets/7b2f1e6e-6fe3-4b7f-8880-72d0fdb324ee)
+
+
+
+    
+![after rsnc utility to copy varlog to homeRecoveryLogs](https://github.com/user-attachments/assets/fdc2ae99-cf3b-4c1d-8c96-29e6d5c2c57c)
+
+
+We can see that both directories are now identical in contents.
+
+
 
 26. Mount /var/log on logs-lv logical volume. (Note that all the existing
-data on /var/log will be deleted. That is why step 15 above is very
-important)
+data on /var/log will be deleted. This is why we copied to the /home/recovery/logs/ directory using the rsync utility
+
+    sudo mount /dev/database-vg/logs-lv /var/log
 
 
-    sudo mount /dev/webdata-vg/logs-lv /var/log
-27. Restore log files back into /var/log directory
+    ![after mounting varlog dir to the log-lv](https://github.com/user-attachments/assets/a94b8493-aaa5-4a90-9f5a-4b2eac384286)
+
+    
+28. Restore log files back into /var/log directory. Now we have to copy back from the /home/recovery/logs/ directory to /var/log directory
 
         sudo rsync -av /home/recovery/logs/ /var/log
 
     
-    ![restore log files back into var-log directory](https://github.com/user-attachments/assets/baee434a-795e-4981-b40d-735ec9c7c963)
+        ![varlog foler after recopying from homeRecovery](https://github.com/user-attachments/assets/1f1240bc-9642-43d6-ae30-dadbafdc2fed)
 
 
 We can now see the mountpoints to show the position of the web app files and the log files using:
@@ -536,7 +558,8 @@ We can now see the mountpoints to show the position of the web app files and the
         lsblk
 
 
-![lsblk to see mount points](https://github.com/user-attachments/assets/64e9c39e-6fe6-4431-9b17-edd58eb15b84)
+    ![lsblk viewing config after mounting and recopying](https://github.com/user-attachments/assets/1449a74f-88ea-45c6-89da-d378129af98d)
+
 
 
       
