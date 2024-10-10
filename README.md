@@ -720,21 +720,60 @@ remove the leading and ending quotes.
     ![configuring SElinux policies output](https://github.com/user-attachments/assets/583d5143-e345-4762-a9ba-4b2f8cef7a49)
 
 
-Step 4 — Install MySQL on your DB Server EC2
-sudo yum update
-sudo yum install mysql-server
-Verify that the service is up and running by using sudo systemctl status mysqld, if it is not running,
-restart the service and enable it so it will be running even after reboot:
-sudo systemctl restart mysqld
-sudo systemctl enable mysqld
-Step 5 — Confi gure DB to work with WordPress
-sudo mysql
-CREATE DATABASE wordpress;
-CREATE USER `myuser`@`<Web-Server-Private-IP-Address>` IDENTIFIED BY 'mypass';
-GRANT ALL ON wordpress.* TO 'myuser'@'<Web-Server-Private-IP-Address>';
-FLUSH PRIVILEGES;
-SHOW DATABASES;
-exit
+**Step 4 — Install MySQL on your DB Server EC2**
+
+Enter the command below to update and install mysql-server:
+
+
+        sudo yum update
+        sudo yum install mysql-server
+
+
+        
+Verify that the service is up and running by using 
+
+        sudo systemctl status mysqld:
+
+![systemctl status mysqld](https://github.com/user-attachments/assets/f9ef0465-f11e-4801-800f-bd2c0e210dc8)
+
+        
+We will restart the service and enable it so it will be running even after reboot:
+
+
+        sudo systemctl restart mysqld
+        sudo systemctl enable mysqld
+
+![systemctl restart and enable mysqld](https://github.com/user-attachments/assets/0e1aeb1f-5eb2-4a9f-bf99-19b05ae3725c)
+
+Step 5 — Configure DB to work with WordPress:
+
+
+        #Enter the mysql console
+        sudo mysql
+        
+        #Create a database called 'wordpress'
+        CREATE DATABASE wordpress;
+
+
+        #Create a user named 'myuser' and set the password to 'Password123$'
+        CREATE USER `myuser`@`<Web-Server-Private-IP-Address>` IDENTIFIED BY 'Password123$';
+        
+
+        #Grant permission to 'myuser' to have access to all information with 'wordpress.'
+        GRANT ALL ON wordpress.* TO 'myuser'@'<Web-Server-Private-IP-Address>';
+        
+        #Remove existing cached privileges
+        FLUSH PRIVILEGES;
+        #show databases
+        SHOW DATABASES;
+
+        #exit the console
+        exit
+
+
+
+
+        
 Step 6 — Confi gure WordPress to connect to remote database.
 Hint: Do not forget to open MySQL port 3306 on DB Server EC2. For extra security, you shall allow
 access to the DB server ONLY from your Web Server's IP address, so in the Inbound Rule
