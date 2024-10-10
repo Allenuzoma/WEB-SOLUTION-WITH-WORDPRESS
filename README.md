@@ -642,9 +642,13 @@ remove the leading and ending quotes.
         sudo setsebool -P httpd_execmem 1
 
 **Explanation of command**
+
 **setsebool**: This is the command used to modify Security-Enhanced Linux (SELinux) boolean values. SELinux is a security module for Linux that provides a mandatory access control (MAC) system.
+
 **-P**: This option indicates that the change should be made persistent, meaning it will be saved after the system is restarted.
+
 **httpd_execmem:** This is the specific boolean value being modified. It controls whether the Apache HTTP server process is allowed to execute code from memory.
+
 **1:** This sets the boolean value to 1, which means the Apache HTTP server process is allowed to execute code from memory.  
 
 
