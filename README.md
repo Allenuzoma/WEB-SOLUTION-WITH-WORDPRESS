@@ -695,9 +695,20 @@ httpd_execmem: This is the specific boolean value being modified. It controls wh
 
     
 13. Configure SELinux Policies
-sudo chown -R apache:apache /var/www/html/wordpress
-sudo chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R
-sudo setsebool -P httpd_can_network_connect=1
+
+
+        #Change the ownership of the /var/www/html/wordpress directory and all its contents to the apache user and group.
+        sudo chown -R apache:apache /var/www/html/wordpress
+
+        #Change the ownership of the /var/www/html/wordpress directory and all its contents to the apache user and group. -t httpd_sys_rw_content_t sets the context to httpd_sys_rw_content_t, which grants read and write permissions to the httpd service.
+        sudo chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R
+
+
+        #Enable network connectivity for the httpd service
+        sudo setsebool -P httpd_can_network_connect=1
+
+    ![configuring SElinux policies output](https://github.com/user-attachments/assets/583d5143-e345-4762-a9ba-4b2f8cef7a49)
+
 
 Step 4 — Install MySQL on your DB Server EC2
 sudo yum update
