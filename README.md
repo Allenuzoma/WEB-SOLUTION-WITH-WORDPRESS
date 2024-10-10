@@ -393,11 +393,11 @@ Now we can see the newly created partitions for all the disks
     LVM:
 
 
-        sudo pvcreate /dev/xvdf1
+        sudo pvcreate /dev/xvdi1
 
-        sudo pvcreate /dev/xvdg1
+        sudo pvcreate /dev/xvdj1
 
-        sudo pvcreate /dev/xvdh1
+        sudo pvcreate /dev/xvdk1
 
 
 
@@ -422,6 +422,8 @@ Now we can see the newly created partitions for all the disks
 
 
  8. Verify the volume group is created by entering:
+
+    
          sugo vgs
 
        
@@ -437,13 +439,15 @@ used to store data for logs.
 
 
 
-      sudo lvcreate -n db-lv -L 14G webdata-vg
-      sudo lvcreate -n logs-lv -L 14G webdata-vg  
+          sudo lvcreate -n db-lv -L 14G webdata-vg
+    
+        
+          sudo lvcreate -n logs-lv -L 14G webdata-vg  
 
 
 
 
-12. Verify that your Logical Volume has been created successfully by
+13. Verify that your Logical Volume has been created successfully by
 running
 
 
@@ -516,11 +520,13 @@ running
 25. Use rsync utility to backup all the files in the log directory /var/log into 
     /home/recovery/logs (This is required before mounting the file system)
 
-     sudo rsync -av /var/log/ /home/recovery/logs/
+
+         sudo rsync -av /var/log/ /home/recovery/logs/
 
 
 See the content of the /var/log/ directory
-    ![ls var log](https://github.com/user-attachments/assets/7b2f1e6e-6fe3-4b7f-8880-72d0fdb324ee)
+   
+![ls var log](https://github.com/user-attachments/assets/7b2f1e6e-6fe3-4b7f-8880-72d0fdb324ee)
 
 
 
