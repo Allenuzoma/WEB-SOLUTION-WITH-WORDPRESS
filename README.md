@@ -608,20 +608,23 @@ remove the leading and ending quotes.
 
         sudo yum -y update
 
-   
+   ![sudo yum -y update](https://github.com/user-attachments/assets/e56e96cd-bcff-44f9-bcfa-bd95d3b2b155)
+
 3. Install wget, Apache and its dependencies
 
    
         sudo yum -y install wget httpd php php-mysqlnd php-fpm php-json
 
-   
+   ![installing wget apache and others](https://github.com/user-attachments/assets/11c790b1-26f3-4778-bc9a-4cefc69443a0)
+
 5. Start Apache
 
    
         sudo systemctl enable httpd
         sudo systemctl start httpd
 
-   
+   ![enable and starting apache](https://github.com/user-attachments/assets/6e0d8de9-c768-4d69-8e0b-4d396de48cfd)
+
 
 7. To install PHP and its dependencies
 
@@ -645,6 +648,10 @@ httpd_execmem: This is the specific boolean value being modified. It controls wh
 1: This sets the boolean value to 1, which means the Apache HTTP server process is allowed to execute code from memory.  
 
 
+
+![installing fedora](https://github.com/user-attachments/assets/bc8737e7-2bb7-47ee-aef4-349a48e544a1)
+
+
 9. Restart Apache using the command:
 
     
@@ -658,18 +665,40 @@ httpd_execmem: This is the specific boolean value being modified. It controls wh
     
         #Download the latest wordpress from the internedownloads the latest version of WordPress as a compressed archive file (tar.gz) from the official WordPress website
         sudo wget http://wordpress.org/latest.tar.gz
+    
+    ![content of wordpress directory](https://github.com/user-attachments/assets/724b98a7-dcba-444d-a110-57fe93388f5d)
+
+        #Extract the downloaded archive file ("latest.tar.gz")
         sudo tar -xzvf latest.tar.gz
+
+    ![wordpress](https://github.com/user-attachments/assets/24fa66c3-b4c2-4254-8f54-c2cb1a6d330f)
+
+        #Delete the downloaded archive file "latest.tar.gz" after extraction
         sudo rm -rf latest.tar.gz
-        cp wordpress/wp-config-sample.php wordpress/wp-config.php
+
+        #Copy the file "wp-config-sample.php" located inside the extracted "wordpress" directory to a new file named "wp-config.php" within the same directory:
+    
+        sudo cp wordpress/wp-config-sample.php wordpress/wp-config.php
+
+    ![contents of wordpress](https://github.com/user-attachments/assets/0d5ba3d4-e9a9-4604-ba6a-cbde20ca32de)
+
+    ![wordpress content after copy config -sample to config](https://github.com/user-attachments/assets/e2efa5c0-7f6d-4145-b110-77bdd501c4f1)
+
+        #Copy the entire extracted "wordpress" directory recursively (including all subdirectories and files) to the "/var/www/html/" directory.
+
+
         cp -R wordpress /var/www/html/
+    
+    Now check the content of the /var/www/html/
+    
+![ls var www html after copying](https://github.com/user-attachments/assets/92a1d0c2-00f4-4751-943d-4906c03fd31a)
 
     
 13. Configure SELinux Policies
 sudo chown -R apache:apache /var/www/html/wordpress
 sudo chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R
 sudo setsebool -P httpd_can_network_connect=1
-34% COMPLETE 32/94 Steps  Previous Lesson
-
+
 Step 4 — Install MySQL on your DB Server EC2
 sudo yum update
 sudo yum install mysql-server
