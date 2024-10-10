@@ -599,5 +599,119 @@ remove the leading and ending quotes.
     ![df -h after daemon reload png n](https://github.com/user-attachments/assets/8f31d0c6-93f0-4b16-9a77-44eb1765a525)
 
     
+############################################################
+
+**STEP 3: Install WordPress on your Web Server EC2**    
+1. Update the repository
+
+
+
+        sudo yum -y update
+
+   
+3. Install wget, Apache and its dependencies
+
+   
+        sudo yum -y install wget httpd php php-mysqlnd php-fpm php-json
+
+   
+5. Start Apache
+
+   
+        sudo systemctl enable httpd
+        sudo systemctl start httpd
+
+   
+
+7. To install PHP and its dependencies
+
+   
+        sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+        sudo yum install yum-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+        sudo yum module list php
+        sudo yum module reset php
+        sudo yum module enable php:remi-7.4
+        sudo yum install php php-opcache php-gd php-curl php-mysqlnd
+        sudo systemctl start php-fpm
+        sudo systemctl enable php-fpm
+   
+        #modify the security context of the Apache HTTP server process on a Linux system.
+        sudo setsebool -P httpd_execmem 1
+
+
+setsebool: This is the command used to modify Security-Enhanced Linux (SELinux) boolean values. SELinux is a security module for Linux that provides a mandatory access control (MAC) system.
+-P: This option indicates that the change should be made persistent, meaning it will be saved after the system is restarted.
+httpd_execmem: This is the specific boolean value being modified. It controls whether the Apache HTTP server process is allowed to execute code from memory.
+1: This sets the boolean value to 1, which means the Apache HTTP server process is allowed to execute code from memory.  
+
+
+9. Restart Apache using the command:
 
     
+        sudo systemctl restart httpd
+   
+11. Next we will download wordpress and copy wordpress to /var/www/html
+
+        #Create and enter the wordpress directory
+        mkdir wordpress
+        cd wordpress
+    
+        #Download the latest wordpress from the internedownloads the latest version of WordPress as a compressed archive file (tar.gz) from the official WordPress website
+        sudo wget http://wordpress.org/latest.tar.gz
+        sudo tar -xzvf latest.tar.gz
+        sudo rm -rf latest.tar.gz
+        cp wordpress/wp-config-sample.php wordpress/wp-config.php
+        cp -R wordpress /var/www/html/
+
+    
+13. Configure SELinux Policies
+sudo chown -R apache:apache /var/www/html/wordpress
+sudo chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R
+sudo setsebool -P httpd_can_network_connect=1
+34% COMPLETE 32/94 Steps  Previous Lesson
+
+Step 4 — Install MySQL on your DB Server EC2
+sudo yum update
+sudo yum install mysql-server
+Verify that the service is up and running by using sudo systemctl status mysqld, if it is not running,
+restart the service and enable it so it will be running even after reboot:
+sudo systemctl restart mysqld
+sudo systemctl enable mysqld
+Step 5 — Confi gure DB to work with WordPress
+sudo mysql
+CREATE DATABASE wordpress;
+CREATE USER `myuser`@`<Web-Server-Private-IP-Address>` IDENTIFIED BY 'mypass';
+GRANT ALL ON wordpress.* TO 'myuser'@'<Web-Server-Private-IP-Address>';
+FLUSH PRIVILEGES;
+SHOW DATABASES;
+exit
+Step 6 — Confi gure WordPress to connect to remote database.
+Hint: Do not forget to open MySQL port 3306 on DB Server EC2. For extra security, you shall allow
+access to the DB server ONLY from your Web Server's IP address, so in the Inbound Rule
+configuration specify source as /32
+34% COMPLETE 32/94 Steps  Previous Lesson
+
+1. Install MySQL client and test that you can connect from your Web Server to your DB server by
+using mysql-client
+sudo yum install mysql
+sudo mysql -u admin -p -h <DB-Server-Private-IP-address>
+2. Verify if you can successfully execute SHOW DATABASES; command and see a list of existing
+databases.
+3. Change permissions and configuration so Apache could use WordPress:
+4. Enable TCP port 80 in Inbound Rules configuration for your Web Server EC2 (enable from
+everywhere 0.0.0.0/0 or from your workstation's IP)
+5. Try to access from your browser the link to your WordPress http://<Web-Server-Public-IP￾Address>/wordpress/
+34% COMPLETE 32/94 Steps  Previous Lesson
+
+Fill out your DB credentials:
+34% COMPLETE 32/94 Steps  Previous Lesson
+
+If you see this message - it means your WordPress has successfully connected to your remote
+MySQL database
+34% COMPLETE 32/94 Steps  Previous Lesson
+
+Important: Do not forget to STOP your EC2 instances after completion of the project to avoid extra
+costs.
+CONGRATULATIONS!
+You have learned how to configure Linux storage susbystem and have also deployed a full-scale
+Web Solution using WordPress CMS and MySQL RDBMS!
