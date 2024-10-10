@@ -698,7 +698,7 @@ remove the leading and ending quotes.
 ![ls var www html after copying](https://github.com/user-attachments/assets/92a1d0c2-00f4-4751-943d-4906c03fd31a)
 
     
-13. Configure SELinux Policies
+13. Configure SELinux Policies: SELinux (Security-Enhanced Linux) is a mandatory access control (MAC) system that provides a robust security framework for Linux systems. It operates by enforcing a set of rules, known as policies, that govern how processes can interact with system resources.
 
 
         #Change the ownership of the /var/www/html/wordpress directory and all its contents to the apache user and group.
