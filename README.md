@@ -1,4 +1,9 @@
 # WEB-SOLUTION-WITH-WORDPRESS
+
+
+**STEP 1: Prepare the Web-Server**
+
+
 1. Create an EC2 instance with the Redhat OS.
 2. Name the instance Web-Server
 
@@ -296,7 +301,7 @@ The UUID of the device will be used to update the /etc/fstab file;
 
 
 
-**STEP 2**
+**STEP 2: Prepare the Database Server**
 
 1. Create an EC2 instance with the Redhat OS and name the instance Web-Server
 ![db server instance creation](https://github.com/user-attachments/assets/2ace169f-f21b-4228-a599-51e73f2f921f)
