@@ -1,14 +1,15 @@
 # WEB-SOLUTION-WITH-WORDPRESS
-Create an EC2 instance with the Redhat OS.
-Name the instance Web-Server
+1. Create an EC2 instance with the Redhat OS.
+2. Name the instance Web-Server
 
-Create three EBS volumes of 10 Gib each
+3. Create three EBS volumes of 10 Gib each and attach these volumes to the ec2 instance.
 
 
 
 ![ebs volume creation](https://github.com/user-attachments/assets/1a5b8e2a-5a3c-4b19-b938-845f5ca0c6e0)
 
-Next we connect our instance using the windows terminal
+
+4. Next we connect our instance using the windows terminal
 
 
 
@@ -16,7 +17,7 @@ Next we connect our instance using the windows terminal
 ![connect to terminal](https://github.com/user-attachments/assets/ec5e729a-7c46-4b39-bc96-b56e66538345)
 
 
-We can see the block device currently connected using the command:
+5. We can see the block device currently connected using the command:
 
 
     lsblk
@@ -27,7 +28,7 @@ We can see the block device currently connected using the command:
 ![lsblk list block](https://github.com/user-attachments/assets/a7492248-9885-4888-b7c2-59899119cd16)
 
     
-To see all the mounts and free spaces available on the server:
+6. To see all the mounts and free spaces available on the server:
    
     
     
@@ -40,8 +41,8 @@ To see all the mounts and free spaces available on the server:
     
 ![mounts and free spaces on the server](https://github.com/user-attachments/assets/b0903239-1bd5-4fbe-8aed-d1a1290315c1)
 
-We use the gdisk utility to create single partition on each of the three disks. 
-Starting with disk /dev/xvdf, enter the command:
+7. We use the gdisk utility to create single partition on each of the three disks. 
+   Starting with disk /dev/xvdf, enter the command:
 
 
 
@@ -53,14 +54,14 @@ Starting with disk /dev/xvdf, enter the command:
     
 ![to create single partition table on disk 1 contd](https://github.com/user-attachments/assets/d74e81a6-998f-499b-a4a9-d000e6c89700)
 
-When asked for a command, type P for printing partition table, n for creating a new partion and W to write. Enter Yes to all and proceed with the process.
+8. When asked for a command, type P for printing partition table, n for creating a new partion and W to write. Enter Yes to all and proceed with the process.
 
 
 
 
 ![to create single partition table on disk 1](https://github.com/user-attachments/assets/a5354f0a-9c1d-43f8-8b25-e89f8a915afe)
 
-We repeat the process for disks /dev/xvdg and /def/xvdh
+9. We repeat the process for disks /dev/xvdg and /def/xvdh
 
 
 
@@ -81,12 +82,12 @@ We repeat the process for disks /dev/xvdg and /def/xvdh
 
 
 
-5. Use lsblk to confirm new partition on each disk:
+10. Use lsblk to confirm new partition on each disk:
 
    
        lsblk
 
-Now we can see the newly created partitions for all the disks
+11. Now we can see the newly created partitions for all the disks
 
 
 
@@ -94,7 +95,7 @@ Now we can see the newly created partitions for all the disks
 
 
 
-6. Install the lvm2 package:
+12. Install the lvm2 package:
 
 
        sudo yum install lvm2
@@ -109,7 +110,7 @@ Now we can see the newly created partitions for all the disks
 
 
 
-   Check for available partition:
+13. Check for available partition:
 
 
 
@@ -118,7 +119,7 @@ Now we can see the newly created partitions for all the disks
     ![sudo lvmdiskscan](https://github.com/user-attachments/assets/5a405105-1528-4537-a57e-fc1b987b151a)
 
 
- 7. Use pvcreate utility to mark each of the three disks partitions to be used by 
+ 14. Use pvcreate utility to mark each of the three disks partitions to be used by 
     LVM:
 
 
@@ -135,27 +136,27 @@ Now we can see the newly created partitions for all the disks
 
 
 
- 8. Verify the physical volume is created by entering:
+ 15. Verify the physical volume is created by entering:
 
     
          sudo pvs
 ![sudo pvs verify phusical volume created](https://github.com/user-attachments/assets/6a8eefc7-1302-4b09-aab0-ef7f1c18792f)
 
- 10. Use Vg create utility to add all 3 physical volumes to a volume group. Lets call the new volume: webdata-vg:
+ 16. Use Vg create utility to add all 3 physical volumes to a volume group. Lets call the new volume: webdata-vg:
 
      
          sudo vgcreate webdata-vg /dev/xvdh1 /dev/xvdg1 /dev/xvdf1
 
- 8. Verify the volume group is created by entering:
+ 17. Verify the volume group is created by entering:
          sugo vgs
 
        
      ![sudo vgs](https://github.com/user-attachments/assets/191cbd50-7b0e-441a-b649-f8c069637299)
 
-11. Use lvcreate utility to create 2 logical volumes. apps-lv (Use half of the
-PV size), and logs-lv Use the remaining space of the PV size. NOTE:
-apps-lv will be used to store data for the Website while, logs-lv will be
-used to store data for logs.
+18. Use lvcreate utility to create 2 logical volumes. apps-lv (Use half of the
+    PV size), and logs-lv Use the remaining space of the PV size. NOTE:
+    apps-lv will be used to store data for the Website while, logs-lv will be
+    used to store data for logs.
 
 
 
@@ -167,7 +168,7 @@ sudo lvcreate -n logs-lv -L 14G webdata-vg
 
 
 
-12. Verify that your Logical Volume has been created successfully by
+19. Verify that your Logical Volume has been created successfully by
 running
 
 
@@ -176,7 +177,7 @@ running
     ![sudo lvs](https://github.com/user-attachments/assets/c4c56df0-936f-4d94-b8db-ae7f9d4e692f)
 
            
-13. Verify the entire setup
+20. Verify the entire setup
 
         sudo vgdisplay -v #view complete setup - VG, PV,         and LV
 
@@ -189,7 +190,7 @@ running
     ![sudo lsblk after creating vg pv and lv](https://github.com/user-attachments/assets/7e3c27f5-a1a6-4aa6-bc62-ca13b4d25a54)
 
 
-15. Use mkfs.ext4 to format the logical volumes with ext4 filesystem
+21. Use mkfs.ext4 to format the logical volumes with ext4 filesystem
 
     
         sudo mkfs -t ext4 /dev/webdata-vg/apps-lv
@@ -198,7 +199,7 @@ running
 
    ![sudo mkfs -t ext4 lv](https://github.com/user-attachments/assets/17f710ed-5a3c-4491-9dbb-aa8b94772826)
 
-15. Create /var/www/html directory to store                 websitefiles
+22. Create /var/www/html directory to store                 websitefiles
 
 
 
@@ -207,7 +208,7 @@ running
     
     ![to create var www html dir for web files](https://github.com/user-attachments/assets/dcbc2093-aa8e-4d7f-8bc7-7347c79f3598)
 
-18. Create /home/recovery/logs to store backup of log data
+23. Create /home/recovery/logs to store backup of log data
 
 
 
@@ -217,7 +218,7 @@ running
 ![create dir to store back up of log data](https://github.com/user-attachments/assets/aba6561f-bad6-416b-ae9a-f3db44f8a01a)
 
 
-23. Mount /var/www/html on apps-lv logical volume
+24. Mount /var/www/html on apps-lv logical volume
 
     
         sudo mount /dev/webdata-vg/apps-lv /var/www/html/
@@ -226,7 +227,7 @@ running
     ![mount varwwwhtml dir on app-lv logical volume](https://github.com/user-attachments/assets/4befbd7f-22e2-467d-96a1-eface3b6347a)
 
 
-24. Use rsync utility to backup all the files in the 
+25. Use rsync utility to backup all the files in the 
    log directory /var/log into /home/recovery/logs 
   (This is required before mounting the file system)
 
@@ -274,45 +275,46 @@ The UUID of the device will be used to update the /etc/fstab file;
 
         sudo nano /etc/fstab
         
-Update /etc/fstab in this format using your own UUID and rememeber to
-remove the leading and ending quotes.
+29. Update /etc/fstab in this format using your own UUID and rememeber to
+    remove the leading and ending quotes.
 
-        ![sudo nano -etc-fstab](https://github.com/user-attachments/assets/05b25edf-02d1-4d36-a735-52e15565d902)
+![sudo nano -etc-fstab](https://github.com/user-attachments/assets/05b25edf-02d1-4d36-a735-52e15565d902)
 
 
     
-32. Test the configuration and reload the daemon
+30. Test the configuration and reload the daemon
     
         sudo mount -a
         sudo systemctl daemon-reload
 
 
 
-34. Verify your setup by running df -h, output must look like this:
+31. Verify your setup by running df -h, output must look like this:
 
 
      ![df -h  after systemctl daemon reload](https://github.com/user-attachments/assets/4b7e6e09-13d7-4dac-b085-4bdcb83f8834)
-#######################################################################################################################################################################################################################################################################################################################################################################################
+
+
+
 **STEP 2**
-# WEB-SOLUTION-WITH-WORDPRESS
-Create an EC2 instance with the Redhat OS.
-Name the instance Web-Server
+
+1. Create an EC2 instance with the Redhat OS and name the instance Web-Server
 ![db server instance creation](https://github.com/user-attachments/assets/2ace169f-f21b-4228-a599-51e73f2f921f)
 
-Create three EBS volumes of 10 Gib each
+2. Create three EBS volumes of 10 Gib each
 
 
 ![db volume list](https://github.com/user-attachments/assets/dd9c9fcd-463f-4076-b5c5-0fca38ea5a59)
 
 
-Next we connect our instance using the windows terminal
+3. Next we connect our instance using the windows terminal
 
 
 
 
 
 
-We can see the block device currently connected using the command:
+4. We can see the block device currently connected using the command:
     lsblk
 
 
@@ -320,7 +322,7 @@ We can see the block device currently connected using the command:
 
 
     
-To see all the mounts and free spaces available on the server:
+5. To see all the mounts and free spaces available on the server:
     df -h
 ![df -h showing mounts and free spaces](https://github.com/user-attachments/assets/2f2ac5d8-e409-45ca-b751-d5d304445a63)
 
@@ -605,7 +607,7 @@ remove the leading and ending quotes.
     ![df -h after daemon reload png n](https://github.com/user-attachments/assets/8f31d0c6-93f0-4b16-9a77-44eb1765a525)
 
     
-############################################################
+
 
 **STEP 3: Install WordPress on your Web Server EC2**    
 1. Update the repository
@@ -872,5 +874,5 @@ everywhere 0.0.0.0/0 or from your workstation's IP)
 
 
 
-You have learned how to configure Linux storage susbystem and have also deployed a full-scale
-Web Solution using WordPress CMS and MySQL RDBMS!
+    Now we have been able to configure Linux storage susbystem and have also deployed a full-scale
+    Web Solution using WordPress CMS and MySQL RDBMS!
