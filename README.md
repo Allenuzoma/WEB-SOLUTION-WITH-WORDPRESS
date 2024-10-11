@@ -745,6 +745,17 @@ We will restart the service and enable it so it will be running even after reboo
 
 ![systemctl restart and enable mysqld](https://github.com/user-attachments/assets/0e1aeb1f-5eb2-4a9f-bf99-19b05ae3725c)
 
+
+
+Configure remote access by editing the mysql configuration file with is found at /etc/my.cnf in Mysql installed on Amazon linux 2023. This is equivalent to the 
+
+        sudo nano /etc/my.cnf
+
+
+
+ ![bind-address in etc my cnf](https://github.com/user-attachments/assets/39c43d9c-a634-412a-ba05-20af6cfc79ca)
+
+
 **Step 5 — Configure DB to work with WordPress:**
 
 
