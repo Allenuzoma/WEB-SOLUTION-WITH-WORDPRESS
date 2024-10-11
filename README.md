@@ -794,32 +794,72 @@ configuration specify source as /32
         sudo mysql -u myuser -p -h <DB-Server-Private-IP-address>
 
    
-3. Verify if you can successfully execute SHOW DATABASES; command and see a list of existing
+2. Verify if you can successfully execute SHOW DATABASES; command and see a list of existing
 databases.
 
     ![sql commands on the webserver ec2](https://github.com/user-attachments/assets/a7598382-7ffe-46eb-81db-40f95dbcdf89)
 
+3. Now we have to ensure proper file permissions are set to enable Apache is able to read and write wordpress files.
+   We would make apache the owner of the wordpress files by setting directories to 755 permission and by setting files to 644 permission
 
-    
-5. Change permissions and configuration so Apache could use WordPress:
-6. Enable TCP port 80 in Inbound Rules configuration for your Web Server EC2 (enable from
+
+        sudo chown -R apache:apache /var/www/html/wordpress
+        sudo find /var/www/html/wordpress -type d -exec chmod 755 {} \;
+        sudo find /var/www/html/wordpress -type f -exec chmod 644 {} \;
+
+   
+4. Configure wp-config file to contain remote database details
+
+   Locate the wp-config.php file using the command:
+
+        sudo nano /var/www/html/wordpress/wp-config.php
+
+   Now edit the file by following the format:
+
+
+        define('DB_NAME', 'your_database_name');
+        define('DB_USER', 'your_database_user');
+        define('DB_PASSWORD', 'your_database_password');
+        define('DB_HOST', 'your_database_server_private_ip');
+
+
+   ![wp-config php png editing](https://github.com/user-attachments/assets/d3617cd7-2062-4910-8c28-48d30577843a)
+
+
+       
+6. Ensure Apache is configured to serve WordPress. Create a new Apache configuration file
+
+
+
+       sudo nano /etc/httpd/conf.d/wordpress.conf # the conf.d folder is used in Redhat distributions unlike ubuntu which uses sites-available
+
+    ![apache config file](https://github.com/user-attachments/assets/d1cc6486-1c68-4c08-a066-9fae28b567ac)
+
+  
+8. Enable TCP port 80 in Inbound Rules configuration for your Web Server EC2 (enable from
 everywhere 0.0.0.0/0 or from your workstation's IP)
 
 
    ![new ib rule for port 80](https://github.com/user-attachments/assets/0832a5ba-353e-4ed1-ac1a-88decbc6a6c1)
 
-7. Try to access from your browser the link to your WordPress http://<Web-Server-Public-IP￾Address>/wordpress/
-34% COMPLETE 32/94 Steps  Previous Lesson
-
-Fill out your DB credentials:
-34% COMPLETE 32/94 Steps  Previous Lesson
-
-If you see this message - it means your WordPress has successfully connected to your remote
-MySQL database
-34% COMPLETE 32/94 Steps  Previous Lesson
-
-Important: Do not forget to STOP your EC2 instances after completion of the project to avoid extra
-costs.
-CONGRATULATIONS!
+9. Try to access from your browser the link to your WordPress http://<Web-Server-Public-IP￾Address>/wordpress/
+
+
+   ![wordpress site using pub ip](https://github.com/user-attachments/assets/e52bf28c-01c7-42b9-934b-2b80d9a93362)
+
+
+
+    ![wordpress pre installation](https://github.com/user-attachments/assets/81c54296-0c0c-4caa-9be6-818120b481f9)
+
+
+    
+    ![allens wordpress site](https://github.com/user-attachments/assets/53eb1023-cf4a-4070-a3a2-25a37b90e3ac)
+
+
+
+
+
+
+
 You have learned how to configure Linux storage susbystem and have also deployed a full-scale
 Web Solution using WordPress CMS and MySQL RDBMS!
