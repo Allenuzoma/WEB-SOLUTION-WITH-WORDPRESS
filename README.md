@@ -165,8 +165,8 @@
 
 
 
-      sudo lvcreate -n apps-lv -L 14G webdata-vg
-sudo lvcreate -n logs-lv -L 14G webdata-vg  
+          sudo lvcreate -n apps-lv -L 14G webdata-vg
+          sudo lvcreate -n logs-lv -L 14G webdata-vg  
 
 
 ![sudo lv create logs-lv](https://github.com/user-attachments/assets/d38bb034-4d82-41d5-9a0e-a1510b740e64)
