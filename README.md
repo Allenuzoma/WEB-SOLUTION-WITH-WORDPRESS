@@ -128,11 +128,11 @@
     LVM:
 
 
-        sudo pvcreate /dev/xvdf1
-
-        sudo pvcreate /dev/xvdg1
-
-        sudo pvcreate /dev/xvdh1
+            sudo pvcreate /dev/xvdf1
+    
+            sudo pvcreate /dev/xvdg1
+    
+            sudo pvcreate /dev/xvdh1
 
 
 
