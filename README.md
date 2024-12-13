@@ -245,8 +245,9 @@ data on /var/log will be deleted. That is why step 15 above is very
 important)
 
 
-    sudo mount /dev/webdata-vg/logs-lv /var/log
-27. Restore log files back into /var/log directory
+     sudo mount /dev/webdata-vg/logs-lv /var/log
+    
+28. Restore log files back into /var/log directory
 
         sudo rsync -av /home/recovery/logs/ /var/log
 
