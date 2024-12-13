@@ -25,7 +25,7 @@
 5. We can see the block device currently connected using the command:
 
 
-    lsblk
+        lsblk
 
 
 
@@ -38,7 +38,7 @@
     
     
     
-    df -h
+        df -h
 
 
 
@@ -52,7 +52,7 @@
 
 
 
-    sudo gdisk /dev/xvdf
+        sudo gdisk /dev/xvdf
 
 
 
@@ -71,7 +71,7 @@
 
 
 
-    sudo gdisk /dev/xvdg
+        sudo gdisk /dev/xvdg
 
 
 
@@ -79,7 +79,7 @@
 
     
 
-    sudo gdisk /dev/xvdh
+        sudo gdisk /dev/xvdh
 
 
 ![create partition xvdh](https://github.com/user-attachments/assets/d16f194b-d1c6-4fc5-96cb-3d5f32a87002)
@@ -119,7 +119,7 @@
 
 
 
-       sudo lvmdiskscan
+           sudo lvmdiskscan
 
     ![sudo lvmdiskscan](https://github.com/user-attachments/assets/5a405105-1528-4537-a57e-fc1b987b151a)
 
