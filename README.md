@@ -236,7 +236,11 @@ running
    log directory /var/log into /home/recovery/logs 
   (This is required before mounting the file system)
 
-     sudo rsync -av /var/log/ /home/recovery/logs/
+
+
+      sudo rsync -av /var/log/ /home/recovery/logs/
+
+
 
  ![rsync utility to backup](https://github.com/user-attachments/assets/210456ba-8060-4d94-944c-993c34f5833f)
 
@@ -245,7 +249,10 @@ data on /var/log will be deleted. That is why step 15 above is very
 important)
 
 
-     sudo mount /dev/webdata-vg/logs-lv /var/log
+
+      sudo mount /dev/webdata-vg/logs-lv /var/log
+
+
     
 28. Restore log files back into /var/log directory
 
