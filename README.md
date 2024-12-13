@@ -716,7 +716,7 @@ remove the leading and ending quotes.
         #Copy the entire extracted "wordpress" directory recursively (including all subdirectories and files) to the "/var/www/html/" directory.
 
 
-        cp -R wordpress /var/www/html/
+         sudo cp -R wordpress /var/www/html/
     
     Now check the content of the /var/www/html/
     
