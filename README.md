@@ -291,8 +291,9 @@ The UUID of the device will be used to update the /etc/fstab file;
 29. Update /etc/fstab in this format using your own UUID and rememeber to
     remove the leading and ending quotes.
 
-![sudo nano -etc-fstab](https://github.com/user-attachments/assets/05b25edf-02d1-4d36-a735-52e15565d902)
 
+
+![etc fstab](https://github.com/user-attachments/assets/7a53a323-8cc1-49bc-b6d0-ba0d4a91194c)
 
     
 30. Test the configuration and reload the daemon
@@ -305,7 +306,10 @@ The UUID of the device will be used to update the /etc/fstab file;
 31. Verify your setup by running df -h, output must look like this:
 
 
-     ![df -h  after systemctl daemon reload](https://github.com/user-attachments/assets/4b7e6e09-13d7-4dac-b085-4bdcb83f8834)
+    
+
+    
+![df -h after mounting](https://github.com/user-attachments/assets/218327f7-3651-4df2-9fe1-04bfc91498af)
 
 
 
